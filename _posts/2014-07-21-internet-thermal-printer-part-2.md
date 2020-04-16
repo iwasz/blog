@@ -1,0 +1,46 @@
+---
+ID: 396
+post_title: Internet thermal printer part 2
+author: admin
+post_excerpt: ""
+layout: post
+permalink: >
+  http://www.iwasz.pl/electronics/internet-thermal-printer-part-2/
+published: true
+post_date: 2014-07-21 16:59:48
+---
+The printer I bought and <a title="http://www.iwasz.pl/electronics/internet-thermal-printer/" href="http://www.iwasz.pl/electronics/internet-thermal-printer/">described in the previous</a> post really disappointed me. I didn't spend some huge amount of time on that (say 3-4 evenings), but I dig into the subject so deep so I couldn't help myself but do some more hacking. First of all I wanted to know if my cool looking, but quite useless printer can be used in some other way (i.e. the printing head) and whether that is the main board which is broken or the head itself. If the former was true, and the head was OK, I would try to communicate with the head and thus make something which would pretty much implement the whole printer main board that was broken. But if the head was broken, I couldn't do anything but to abandon the project or find another printer. And it's funny, because, as you may have seen at the end of my previous post, this is exactly I've written not to do. But I just love it. When the work you do all day every day is stupid and pointless, when you are constantly bothered with more and more irrelevant things, and after all day you are tired and discouraged, what would you do after arriving home (excluding household duties :D)? Grab a beer, sit and watch TV? Hell no! Grab a beer and tinker some more! It calms me down you know (unless I'm stuck for to long). The printer head used in my <strong>Intermec PW40</strong> is a Seiko (<a href="www.sii.co.jp">www.sii.co.jp</a>) <a title="LTP3445 datasheet" href="http://zival.ru/sites/default/files/download/ltp3445.pdf"><strong>SII <span style="color: #ff0000;">LTP3445 </span></strong>(datasheet here)</a> and it is obsolete. New designs are encouraged to use LTPV445.
+
+So what I did is that I soldered a bunch of wires to the main board to be able to speak directly to the printing head. The resulting wiring looks like that:
+
+[caption id="attachment_390" align="alignnone" width="225"]<a href="http://www.iwasz.pl/wp-content/uploads/2014/07/IMG_20140708_010418.jpg"><img class="size-medium wp-image-390" src="http://www.iwasz.pl/wp-content/uploads/2014/07/IMG_20140708_010418-225x300.jpg" alt="Connected directly to the thermal printer head." width="225" height="300" /></a> Connected directly to the thermal printer head.[/caption]
+
+<span style="letter-spacing: 0.05em;">Then I grabbed signals with a logic analyzer and an oscilloscope to figure out what is malfunctioning (i.e. when the printer was operating). In my opinion, the main board is broken, because printing short strings like 'A\r\n' works OK, and all signals seems to be correct (i.e. 832 bits per row are transferred and quite a few rows are present). But when longer strings are submitted, the whole transmission appears to be corrupted at some point. Serial data burst is clearly shorter, like interrupted. Unfortunately I have made a screenshot of correct transmission (A\r\n), and don't have the corrupted one now (and the board is not operational since I removed the FFC socket). Here's the screen:</span>
+
+[caption id="attachment_399" align="alignnone" width="300"]<a href="http://www.iwasz.pl/wp-content/uploads/2014/07/screenshot.png"><img class="size-medium wp-image-399" src="http://www.iwasz.pl/wp-content/uploads/2014/07/screenshot-300x183.png" alt="Correct transmission to the thermal head. Letter 'A' is being transmitted." width="300" height="183" /></a> Correct transmission to the thermal head issued by the original Intermec PW40 main board. Letter 'A' is being transmitted.[/caption]
+
+The next step was to wire up some circuitry to actually drive the head while it was still soldered to the original main board. I didn't want to break it then, but later it ceased to be a priority :D My setup consists of:
+<ul>
+	<li><a title="ti evaluation board." href="http://www.ti.com/tool/ek-tm4c123gxl">Texas Instruments EK-TM4C123GXL</a> as the main logic unit.</li>
+	<li>
+<p id="page_title"><a href="http://www.pololu.com/product/2135">DRV8835 Dual Motor Driver Carrier</a> from Pololu. It uses a <a href="http://www.ti.com/product/drv8835">DRV8835</a> chip from Texas Instruments.</p>
+</li>
+	<li>Two <a title="TI level shifter" href="http://www.ti.com/product/cd40109b">CD40109B</a> level shifters from Texas Instruments.</li>
+</ul>
+Breadboard looks like this:
+
+[caption id="attachment_388" align="alignnone" width="225"]<a href="http://www.iwasz.pl/wp-content/uploads/2014/07/IMG_20140708_000707.jpg"><img class="size-medium wp-image-388" src="http://www.iwasz.pl/wp-content/uploads/2014/07/IMG_20140708_000707-225x300.jpg" alt="The circuit. You can see that the printer is more or less intact i.e. the head is mounted on the main board and the plastic frame. Later on I decided to disconnect the head from the original main board." width="225" height="300" /></a> The circuit. You can see that the printer is more or less intact i.e. the head is mounted on the main board and the plastic frame. Later on I decided to disconnect the head from the original main board.[/caption]
+
+Shifters are controlled with 3.3V and output 5V for the head's logic. The whole contraption is powered from a laboratory power supply which was set to 5V with low current limit to prevent smoke and fire in case of errors in wiring on my side. The setup drawn about 0.1A when idle and 2.5A when feeding the paper. Driving the motor was pretty easy, I did stepper motor before, so I rather quickly caught up with this one. But the head took more time and at some (thankfully short) time I was stuck. First, the DST signal (DST is for power and thus temperature) circuitry on the main board is secured with some (I believe) TTL logic. The idea is that if thermistor says to the µC that he head is overheating, the µC shuts the head down. This is first protection mechanism programmed in software (BTW manual says that if overheat, the head may cause skin burns, smoke and even fire. It is a thermal one after all). But there is another protection mechanism done in hardware which shuts down the head if the software one malfunctions. I believe, that the two mechanisms are AND-ed by some TTLs. The protection mechanisms are pulling down the DST in case of trouble. In my case, when actually two logic circuits were connected to the head, this situation caused problems, because the original main board, which was not powered, pulled the DST down all time. The solution to this was to cut the trace and that was it (if not cut, the DST would stay low no mater what level I was trying to drive it. Oscilloscope shown only 100mV level changes, obviously to small to be useful).
+
+[caption id="attachment_416" align="alignnone" width="300"]<a href="http://www.iwasz.pl/wp-content/uploads/2014/07/screenshot1.png"><img class="size-medium wp-image-416" src="http://www.iwasz.pl/wp-content/uploads/2014/07/screenshot1-300x183.png" alt="My transmission. A 12*8 pixel wide bar strip. 12 x 0xaa." width="300" height="183" /></a> My transmission. A 12*8 pixel wide bar strip. 12 x 0xaa.[/caption]
+
+But still no luck after the DST problem was resolved, so I decided that something else on the original main board is interfering and I need to disconnect the head from it in sake of connecting to it directly. Didn't have spare FFC socket though (Molex 25 pin 1.25 mm pitch rare and obsolete), so after obtaining a wrong one from farnell (bought 1 mm pitch instead od 1.25 duh!) i soldered the wires directly to the FFC cable. Looks awful, but is rigid:
+
+[caption id="attachment_417" align="alignnone" width="300"]<a href="http://www.iwasz.pl/wp-content/uploads/2014/07/IMG_20140711_233318.jpg"><img class="size-medium wp-image-417" src="http://www.iwasz.pl/wp-content/uploads/2014/07/IMG_20140711_233318-300x225.jpg" alt="Wires soldered directly to the FFC strip." width="300" height="225" /></a> Wires soldered directly to the FFC strip.[/caption]
+
+Still no luck! What the hell! Logic analyzer still happily shows correct bursts of data, so for the third time rewired the breadboard and checked levels with an oscilloscope. And curious thing revealed : all levels (shifted up) were 0-4V instead od 0-5V. I have completely no idea why? My power supply is a cheap one, but can 1 or 2 amps of load cause 1V drop? Must investigate further. <strong>EDIT</strong> my cheap counterfeit Saleae logic analyzer must have somewhat low input impedance and it was it that caused significant voltage drop on logic signals. Disappointing. On the picture below you can see (far left) that only after increasing the voltage repeatedly, the printer started to print:
+
+[caption id="attachment_410" align="alignnone" width="593"]<a href="http://www.iwasz.pl/wp-content/uploads/2014/07/ltp3445-first-success.jpg"><img class="size-large wp-image-410" src="http://www.iwasz.pl/wp-content/uploads/2014/07/ltp3445-first-success-1024x215.jpg" alt="The first successful printout." width="593" height="124" /></a> The first successful printout.[/caption]
+
+I'm excited!

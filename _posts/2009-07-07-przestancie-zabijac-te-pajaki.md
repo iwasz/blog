@@ -1,0 +1,12 @@
+---
+ID: 47
+post_title: Przestańcie zabijać te pająki
+author: admin
+post_excerpt: ""
+layout: post
+permalink: >
+  http://www.iwasz.pl/uncategorized/przestancie-zabijac-te-pajaki/
+published: true
+post_date: 2009-07-07 22:25:23
+---
+Bo jak niektórzy mówią, Matka Boska wtedy płacze i pada. No właśnie. Paaada. Nocleg nasz z dnia 3go wypadł ok 5km przed Rigenbu w pół morderczego podjazdu, którego mieliśmy serdecznie dosyć. Ale to było wczoraj. Rano pogoda pochmurna, ale nie pada. Kontynuujemy wspinaczkę i po pół godziny jesteśmy na przełęczy. Stamtąd szutr do Rigenbu. Ten szutr to gładki jak niejeden nasz asfalt. Potem minęliśmy parę mniejszych wiosek. Często zjazdy i łagodne podjazdy. Po drodze mycie garnków w strumieniu i nabieranie wody. Podrzuciliśmy też komuś śmieci, ale ćśśś. Trafiamy do Vinstra, gdzie próbujemy kupić parę rzeczy. Wychodzę z remy 1000 obładowany : kola 6 zł + 50gr kaucja za puszkę (no za coś tam doliczyli). Woda podobnie, nowy white spirit 37 koron. Stary, pełny do połowy zgubiłem. Kupiłem też zapalarkę, taką długą, bo zapalniczka się stopiła. White spirit ciężko się rozpala. 2x twiks po 6 zyli. Przed sklepem truskawki. Namawiam Asie i zjadamy cala paczkę? Łubiankę? Nie wiem, koszyk wielkości naszego malinowego za 25 koron. Dziewczynka miała różne w różnych cenach, powiedziała, że to są małe, średnie I duże. Kupiłem małe. Z wielką satysfakcja jedliśmy przesłodkie truskawki zbierane prze biednych polskich programistów w Norwegii. Wyjeżdżamy z Vinstry. Tragedia, Asi odkleiła się podeszwa od buta SPD. Buty Vittoria z Allegro. Robię kombinacje na sznurek, która o dziwo zdaje egzamin. Podjeżdża gromadka dzieci na rowerach i pyta czystym angielskim, czy coś się stało i czy nie pomóc. Pisałem, że tu każdy mówi po angielsku? Droga między Vinstra a Sjoa jest bardzo malownicza, polecamy. Zaczyna padać i pada już do wieczora. Potem Otta, Sel (paskudne) i w Sel lub Nord Sel musimy wjechać na E6, której tak unikamy od 2 dni. Łamiemy zakaz i ziu. Tiry śmigają jak szalone. Jest to droga międzynarodowa. Mijamy ze 2 traktory, które też mają zakaz, to nas ośmiela. Przegapiamy zjazd na boczna szosę i lądujemy na E6 tam, gdzie tory przechodzą nad ulicą. Widać już góry ze śniegiem, pada. Widoki nadal są przepiękne. Rzeka jest coraz bardziej rwąca. Mijamy także parę potoków, w których aż się kotłuje. Kończę, bo poleciała kolejna kreska na baterii. Buziaki. trip : 106.35km, avg : 15.27, time : 6:57
